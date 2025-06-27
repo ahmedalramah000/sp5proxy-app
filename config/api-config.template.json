@@ -1,0 +1,12 @@
+{
+    "shrinkearn": {
+        "apiToken": "YOUR_SHRINKEARN_API_TOKEN_HERE",
+        "apiEndpoint": "https://shrinkearn.com/api",
+        "username": "YOUR_USERNAME"
+    },
+    "shortjambo": {
+        "apiToken": "YOUR_SHORTJAMBO_API_TOKEN_HERE", 
+        "apiEndpoint": "https://short-jambo.com/api",
+        "username": "YOUR_USERNAME"
+    }
+} 
