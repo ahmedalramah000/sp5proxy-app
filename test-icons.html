@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SP5Proxy Icons Test</title>
+    <link rel="stylesheet" href="dist-react/bundle.c47672069fd91a2aa5a7.js">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #1a1a1a;
+            color: white;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #444;
+            border-radius: 8px;
+        }
+        .icon-test {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            gap: 10px;
+        }
+        .professional-shield-icon {
+            display: inline-block;
+            width: 1.8rem;
+            height: 1.8rem;
+            background-image: url('dist-react/assets/icons/shield.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .status-icon {
+            display: inline-block;
+            width: 1.5rem;
+            height: 1.5rem;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .status-icon.connected {
+            background-image: url('dist-react/assets/icons/connected.svg');
+        }
+        .status-icon.connecting {
+            background-image: url('dist-react/assets/icons/connecting.svg');
+            animation: spin 2s linear infinite;
+        }
+        .status-icon.disconnected {
+            background-image: url('dist-react/assets/icons/disconnected.svg');
+        }
+        .icon-small {
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .icon-globe { background-image: url('dist-react/assets/icons/globe.svg'); }
+        .icon-lock { background-image: url('dist-react/assets/icons/lock.svg'); }
+        .icon-refresh { background-image: url('dist-react/assets/icons/refresh.svg'); }
+        .icon-settings { background-image: url('dist-react/assets/icons/settings.svg'); }
+        .icon-info { background-image: url('dist-react/assets/icons/info.svg'); }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <h1>SP5Proxy Icons Test Page</h1>
+    
+    <div class="test-section">
+        <h2>Main App Icon</h2>
+        <div class="icon-test">
+            <span class="professional-shield-icon"></span>
+            <span>Professional Shield Icon</span>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Status Icons</h2>
+        <div class="icon-test">
+            <span class="status-icon connected"></span>
+            <span>Connected Status</span>
+        </div>
+        <div class="icon-test">
+            <span class="status-icon connecting"></span>
+            <span>Connecting Status (Animated)</span>
+        </div>
+        <div class="icon-test">
+            <span class="status-icon disconnected"></span>
+            <span>Disconnected Status</span>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Small Icons</h2>
+        <div class="icon-test">
+            <span class="icon-small icon-globe"></span>
+            <span>Globe Icon</span>
+        </div>
+        <div class="icon-test">
+            <span class="icon-small icon-lock"></span>
+            <span>Lock Icon</span>
+        </div>
+        <div class="icon-test">
+            <span class="icon-small icon-refresh"></span>
+            <span>Refresh Icon</span>
+        </div>
+        <div class="icon-test">
+            <span class="icon-small icon-settings"></span>
+            <span>Settings Icon</span>
+        </div>
+        <div class="icon-test">
+            <span class="icon-small icon-info"></span>
+            <span>Info Icon</span>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test Status</h2>
+        <p>✅ Icons should be visible above if the fix is working correctly.</p>
+        <p>❌ If you see empty spaces instead of icons, the paths need further adjustment.</p>
+    </div>
+</body>
+</html>

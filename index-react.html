@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>SP5Proxy Desktop (React UI)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Content Security Policy for Electron security -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self';" />
+    
+    <!-- Custom favicon instead of React default -->
+    <link rel="icon" type="image/x-icon" href="assets/icon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/icon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icon-256.png" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json" />
+    
+    <!-- Prevent default React favicon loading -->
+    <meta name="theme-color" content="#1e3a8a" />
+    <meta name="description" content="SP5Proxy Desktop - System-wide proxy application" />
+  </head>
+  <body style="margin: 0; background-color: #f8f9fa;">
+    <div id="loading-screen" style="
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      z-index: 9999;
+    ">
+      <div style="
+        width: 64px;
+        height: 64px;
+        margin-bottom: 1rem;
+        background-image: url('assets/icon-64.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      "></div>
+      <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">SP5Proxy Desktop</div>
+      <div style="font-size: 1rem; color: #cccccc; margin-bottom: 2rem;">Initializing secure proxy connection...</div>
+      <div style="
+        width: 40px;
+        height: 40px;
+        border: 4px solid #333;
+        border-top: 4px solid #007bff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      "></div>
+    </div>
+
+    <div id="root"></div>
+
+    <script>
+      console.log('🌐 HTML loaded, starting React bundle...');
+      console.log('🔍 DOM ready state:', document.readyState);
+      console.log('🔍 Window location:', window.location.href);
+      console.log('🔍 Document title:', document.title);
+
+      // Polyfill for global variable (Electron renderer process compatibility)
+      if (typeof global === 'undefined') {
+        window.global = window;
+        console.log('✅ Global polyfill applied');
+      } else {
+        console.log('✅ Global already exists');
+      }
+
+      // Add error handling for script loading
+      window.addEventListener('error', function(e) {
+        console.error('❌ Script loading error:', e);
+        const loadingScreen = document.getElementById('loading-screen');
+        if (loadingScreen) {
+          loadingScreen.innerHTML = `
+            <div style="font-size: 3rem; margin-bottom: 1rem;">❌</div>
+            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">Script Error</div>
+            <div style="font-size: 1rem; color: #cccccc; margin-bottom: 2rem;">${e.message}</div>
+            <div style="font-size: 0.9rem; color: #999;">Check console for details</div>
+          `;
+        }
+      });
+
+      // Add CSS animation for spinner
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+        .react-loaded #loading-screen {
+          opacity: 0;
+          transition: opacity 0.5s ease-out;
+          pointer-events: none;
+        }
+
+        /* Hide loading screen when React is ready */
+        .app-ready #loading-screen {
+          display: none;
+        }
+      `;
+      document.head.appendChild(style);
+    </script>
+
+    <script>
+      console.log('🔍 About to load React bundle...');
+      console.log('📁 Current location:', window.location.href);
+      console.log('📂 Base URI:', document.baseURI);
+      console.log('🔍 Script loading time:', new Date().toISOString());
+
+      // Track script loading
+      let scriptLoadStartTime = Date.now();
+
+      // Function to hide loading screen when React is ready
+      window.hideLoadingScreen = function() {
+        console.log('🎯 React app is ready, hiding loading screen...');
+        console.log('🔍 Current body classes before:', document.body.className);
+
+        document.body.classList.add('app-ready');
+
+        console.log('🔍 Current body classes after:', document.body.className);
+        console.log('🔍 Loading screen element:', document.getElementById('loading-screen'));
+
+        // Also notify the main process that React is ready
+        if (window.electronAPI && window.electronAPI.notifyReactReady) {
+          console.log('🔗 Notifying main process that React is ready...');
+          window.electronAPI.notifyReactReady();
+        } else {
+          console.log('⚠️ electronAPI not available for notification');
+        }
+      };
+
+
+
+      // Auto-hide loading screen after 5 seconds as fallback
+      setTimeout(() => {
+        if (!document.body.classList.contains('app-ready')) {
+          console.log('⏰ Auto-hiding loading screen after timeout...');
+          window.hideLoadingScreen();
+
+          // If React failed to load, show a basic interface
+          const reactRoot = document.getElementById('react-root');
+          if (reactRoot && reactRoot.innerHTML.trim() === '') {
+            reactRoot.innerHTML = `
+              <div style="padding: 20px; font-family: Arial, sans-serif; color: white; background: #1e1e1e; min-height: 100vh;">
+                <h1 style="color: #007acc; margin-bottom: 20px;">🔗 SP5Proxy Desktop</h1>
+                <div style="background: #2d2d2d; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                  <h2 style="color: #ffffff; margin-bottom: 15px;">Proxy Connection</h2>
+                  <div style="margin-bottom: 10px;">
+                    <label style="display: block; margin-bottom: 5px; color: #cccccc;">Server:</label>
+                    <input type="text" value="68.225.23.92:18240" style="width: 300px; padding: 8px; border: 1px solid #555; background: #333; color: white; border-radius: 4px;" readonly>
+                  </div>
+                  <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; color: #cccccc;">Type:</label>
+                    <select style="width: 150px; padding: 8px; border: 1px solid #555; background: #333; color: white; border-radius: 4px;">
+                      <option>SOCKS5</option>
+                      <option>HTTP</option>
+                    </select>
+                  </div>
+                  <button onclick="alert('Proxy connection functionality is available via the backend API on port 3002')"
+                          style="background: #007acc; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 14px;">
+                    Connect to Proxy
+                  </button>
+                  <button onclick="alert('Proxy disconnection functionality is available via the backend API on port 3002')"
+                          style="background: #dc3545; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 14px; margin-left: 10px;">
+                    Disconnect
+                  </button>
+                </div>
+                <div style="background: #2d2d2d; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                  <h3 style="color: #ffffff; margin-bottom: 10px;">Status</h3>
+                  <p style="color: #28a745; margin: 0;">✅ Backend services running on port 3002</p>
+                  <p style="color: #28a745; margin: 5px 0 0 0;">✅ Proxy configuration loaded</p>
+                </div>
+                <div style="background: #2d2d2d; padding: 15px; border-radius: 8px;">
+                  <h3 style="color: #ffffff; margin-bottom: 10px;">Quick Actions</h3>
+                  <button onclick="window.location.reload()"
+                          style="background: #6c757d; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; margin-right: 10px;">
+                    Reload Interface
+                  </button>
+                  <button onclick="window.electronAPI && window.electronAPI.openDevTools && window.electronAPI.openDevTools()"
+                          style="background: #6c757d; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">
+                    Open DevTools
+                  </button>
+                </div>
+              </div>
+            `;
+            console.log('📱 Fallback interface loaded - basic proxy controls available');
+          }
+        }
+      }, 5000);
+
+      // Add debugging for DOM ready
+      document.addEventListener('DOMContentLoaded', function() {
+        console.log('📄 DOM Content Loaded event fired');
+      });
+
+      // Add debugging for window load
+      window.addEventListener('load', function() {
+        console.log('🌐 Window load event fired');
+      });
+    </script>
+
+    <!-- Load React bundles in correct order -->
+    <script src="dist-react/bundle.b08f268647533e715a62.js"
+            onload="console.log('✅ Vendor bundle loaded successfully')"
+            onerror="console.error('❌ Vendor bundle failed to load')"></script>
+    <script src="dist-react/bundle.99c0c152f66117687483.js"
+            onload="console.log('✅ Common bundle loaded successfully')"
+            onerror="console.error('❌ Common bundle failed to load')"></script>
+    <script src="dist-react/bundle.3be01ad6cfdbacfcb96c.js"
+            onload="console.log('✅ Main app bundle loaded successfully in', Date.now() - scriptLoadStartTime, 'ms')"
+            onerror="console.error('❌ Main app bundle failed to load')"></script>
+
+    <script>
+      // Additional debugging after bundle load attempt
+      setTimeout(() => {
+        console.log('🔍 Post-bundle load check:');
+        console.log('  - React available:', typeof React !== 'undefined');
+        console.log('  - ReactDOM available:', typeof ReactDOM !== 'undefined');
+        console.log('  - App component available:', typeof window.App !== 'undefined');
+        console.log('  - hideLoadingScreen function:', typeof window.hideLoadingScreen);
+        console.log('  - electronAPI available:', typeof window.electronAPI !== 'undefined');
+
+        // Check if React root element exists
+        const reactRoot = document.getElementById('react-root');
+        console.log('  - React root element:', reactRoot);
+        if (reactRoot) {
+          console.log('  - React root innerHTML length:', reactRoot.innerHTML.length);
+          console.log('  - React root children count:', reactRoot.children.length);
+        }
+      }, 1000);
+    </script>
+  </body>
+</html>

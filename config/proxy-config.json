@@ -1,0 +1,10 @@
+{
+  "host": "",
+  "port": "",
+  "type": "socks5",
+  "username": "",
+  "password": "",
+  "allowUdpFailure": true,
+  "extendedTimeout": true,
+  "fallbackDns": true
+}

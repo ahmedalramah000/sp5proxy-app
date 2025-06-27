@@ -1,0 +1,175 @@
+{
+  "name": "sp5proxy-desktop",
+  "version": "1.0.0",
+  "description": "System-wide proxy application for Windows - routes all traffic through SOCKS5/HTTP proxies",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "start-dev": "electron .",
+    "start-react-test": "electron . --react-test",
+    "start-production": "electron .",
+    "build-react": "webpack --mode=production",
+    "build-react-dev": "webpack --mode=development",
+    "analyze-bundle": "ANALYZE=true npm run build-react",
+    "start-force-admin": "powershell -Command \"Start-Process PowerShell -ArgumentList '-ExecutionPolicy Bypass -Command npm run start-mandatory-admin' -Verb RunAs\"",
+    "start-mandatory-admin": "electron .",
+    "start-user-friendly": "electron .",
+    "start-admin": "powershell -Command \"Start-Process -FilePath 'npm' -ArgumentList 'start' -Verb RunAs\"",
+    "start-elevated": "scripts\\start-with-elevation.bat",
+    "start-elevated-ps": "powershell -ExecutionPolicy Bypass -File scripts/start-with-elevation.ps1",
+    "start-high-integrity": "powershell -ExecutionPolicy Bypass -File scripts/elevate-high-integrity.ps1 -Command \"npm start\"",
+    "start-no-auto-elevate": "electron . --force-no-elevate",
+    "dev": "electron . --dev",
+    "dev-admin": "powershell -Command \"Start-Process -FilePath 'npm' -ArgumentList 'run dev' -Verb RunAs\"",
+    "dev-elevated": "powershell -ExecutionPolicy Bypass -File scripts/start-with-elevation.ps1 -Dev",
+    "dev-high-integrity": "powershell -ExecutionPolicy Bypass -File scripts/elevate-high-integrity.ps1 -Command \"npm run dev\"",
+    "build": "npm run build-react && electron-builder",
+    "build-win": "electron-builder --win",
+    "pack": "electron-builder --dir",
+    "pack-with-uac": "npm run pack && npm run embed-uac-manifest",
+    "dist": "npm run build-react && electron-builder --publish=never",
+    "dist-with-uac": "npm run dist && npm run embed-uac-manifest",
+    "build-complete": "npm run download-binaries && npm run pack-with-uac && node scripts/create-launchers.js",
+    "dist-complete": "npm run download-binaries && npm run dist-with-uac && node scripts/prepare-distribution.js",
+    "embed-uac-manifest": "node scripts/embed-uac-manifest-simple.js",
+    "download-binaries": "node bin/download-binaries.js",
+    "test": "mocha test/*.test.js --timeout 10000",
+    "test-basic": "mocha test/basic.test.js --timeout 5000"
+  },
+  "keywords": [
+    "proxy",
+    "socks5",
+    "http-proxy",
+    "system-wide",
+    "windows",
+    "networking",
+    "vpn-alternative"
+  ],
+  "author": "SP5Proxy Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.27.7",
+    "@babel/preset-env": "^7.27.2",
+    "@babel/preset-react": "^7.27.1",
+    "babel-loader": "^10.0.0",
+    "css-loader": "^7.1.2",
+    "electron": "^27.3.11",
+    "electron-builder": "^24.13.3",
+    "glob": "^11.0.3",
+    "html-webpack-plugin": "^5.6.3",
+    "mocha": "^10.2.0",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.99.9",
+    "webpack-bundle-analyzer": "^4.10.2",
+    "webpack-cli": "^6.0.1"
+  },
+  "dependencies": {
+    "axios": "^1.10.0",
+    "cors": "^2.8.5",
+    "electron-updater": "^6.1.4",
+    "express": "^4.21.2",
+    "get-port": "^7.1.0",
+    "node-fetch": "^2.6.7",
+    "node-forge": "^1.3.1",
+    "node-windows": "^1.0.0-beta.8",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "socks-proxy-agent": "^8.0.5",
+    "sudo-prompt": "^9.2.1",
+    "winreg": "^1.2.4",
+    "ws": "^8.18.2"
+  },
+  "optionalDependencies": {
+    "sqlite3": "^5.1.7"
+  },
+  "build": {
+    "appId": "com.sp5proxy.desktop",
+    "productName": "SP5Proxy Desktop",
+    "compression": "maximum",
+    "icon": "assets/icon.ico",
+    "directories": {
+      "output": "dist-new"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer.js",
+      "index.html",
+      "index-react.html",
+      "styles.css",
+      "src/**/*",
+      "dist-react/**/*",
+      "assets/**/*",
+      "config/**/*",
+      "scripts/start-with-elevation.bat",
+      "scripts/embed-uac-manifest-simple.js",
+      "scripts/create-launchers.js",
+      "scripts/verify-uac-manifest.js",
+      "scripts/prepare-distribution.js",
+      "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
+      "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
+      "!**/node_modules/*.d.ts",
+      "!**/node_modules/.bin",
+      "!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}",
+      "!.editorconfig",
+      "!**/._*",
+      "!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,.gitignore,.gitattributes}",
+      "!**/{__pycache__,thumbs.db,.flowconfig,.idea,.vs,.nyc_output}",
+      "!**/{appveyor.yml,.travis.yml,circle.yml}",
+      "!**/{npm-debug.log,yarn.lock,.yarn-integrity,.yarn-metadata.json}",
+      "!logs/**/*",
+      "!test-*.js",
+      "!scripts/test-*.js",
+      "!scripts/diagnose-*.js",
+      "!scripts/tun-*.js",
+      "!*.md"
+    ],
+    "extraResources": [
+      {
+        "from": "bin/",
+        "to": "bin/",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/icon.ico",
+      "compression": "maximum"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "SP5Proxy Desktop"
+    },
+    "asar": true,
+    "asarUnpack": [
+      "bin/**/*"
+    ],
+    "publish": {
+      "provider": "github",
+      "owner": "sp5proxy",
+      "repo": "sp5proxy-desktop"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sp5proxy/sp5proxy-desktop.git"
+  }
+}

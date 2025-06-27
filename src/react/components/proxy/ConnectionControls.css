@@ -1,0 +1,84 @@
+/* Connection Controls Component Styles */
+.connection-controls {
+  border-top: 1px solid var(--border-color);
+  padding-top: var(--spacing-md);
+}
+
+.control-buttons {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.control-buttons .btn {
+  flex: 1;
+  min-height: 48px;
+  font-weight: 600;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-connecting {
+  background: linear-gradient(45deg, var(--accent-primary), var(--accent-info));
+  color: white;
+  animation: pulse 2s infinite;
+}
+
+.btn-connected {
+  background-color: var(--accent-success);
+  color: white;
+}
+
+.connection-info {
+  margin-top: var(--spacing-sm);
+}
+
+.info-message {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-medium);
+  font-size: var(--font-size-sm);
+  border: 1px solid transparent;
+}
+
+.info-message.warning {
+  background-color: rgba(255, 193, 7, 0.1);
+  color: var(--accent-warning);
+  border-color: rgba(255, 193, 7, 0.2);
+}
+
+.info-message.info {
+  background-color: rgba(23, 162, 184, 0.1);
+  color: var(--accent-info);
+  border-color: rgba(23, 162, 184, 0.2);
+}
+
+.info-message.connecting {
+  background-color: rgba(0, 123, 255, 0.1);
+  color: var(--accent-primary);
+  border-color: rgba(0, 123, 255, 0.2);
+}
+
+.info-message.success {
+  background-color: rgba(40, 167, 69, 0.1);
+  color: var(--accent-success);
+  border-color: rgba(40, 167, 69, 0.2);
+}
+
+.info-icon {
+  font-size: 1rem;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+@media (max-width: 768px) {
+  .control-buttons {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+}

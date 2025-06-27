@@ -1,0 +1,183 @@
+{
+  "app": {
+    "name": "SP5Proxy Desktop",
+    "version": "1.0.0",
+    "description": "System-wide proxy application for Windows",
+    "author": "SP5Proxy Team",
+    "homepage": "https://github.com/sp5proxy/sp5proxy-desktop"
+  },
+  "proxy": {
+    "defaultType": "socks5",
+    "supportedTypes": ["socks5", "http"],
+    "defaultPort": {
+      "socks5": 1080,
+      "http": 8080
+    },
+    "timeout": 30000,
+    "retryAttempts": 3,
+    "retryDelay": 5000
+  },
+  "network": {
+    "tunInterface": {
+      "name": "SP5ProxyTun",
+      "ip": "10.0.0.1",
+      "gateway": "10.0.0.2",
+      "subnet": "255.255.255.0",
+      "mtu": 1500
+    },
+    "dns": {
+      "primary": "8.8.8.8",
+      "secondary": "8.8.4.4",
+      "fallback": ["1.1.1.1", "1.0.0.1"],
+      "timeout": 5000
+    },
+    "routing": {
+      "metric": 1,
+      "backupRoutes": true,
+      "autoRestore": true
+    }
+  },
+  "tun2socks": {
+    "executable": "tun2socks.exe",
+    "arguments": {
+      "mtu": 1500,
+      "tcpTimeout": 600,
+      "udpTimeout": 60,
+      "logLevel": "info"
+    },
+    "downloadUrl": "https://github.com/xjasonlyu/tun2socks/releases/latest/download/tun2socks-windows-amd64.zip",
+    "version": "latest"
+  },
+  "wintun": {
+    "library": "wintun.dll",
+    "downloadUrl": "https://www.wintun.net/builds/wintun-0.14.1.zip",
+    "version": "0.14.1",
+    "requiredVersion": "0.14.0"
+  },
+  "security": {
+    "encryption": {
+      "algorithm": "aes-256-gcm",
+      "keyLength": 32,
+      "ivLength": 16
+    },
+    "storage": {
+      "configDir": ".sp5proxy",
+      "configFile": "config.enc",
+      "keyFile": "key.dat",
+      "permissions": "0600"
+    },
+    "elevation": {
+      "required": true,
+      "autoRequest": true,
+      "timeout": 30000
+    }
+  },
+  "ui": {
+    "window": {
+      "width": 1200,
+      "height": 800,
+      "minWidth": 800,
+      "minHeight": 600,
+      "resizable": true,
+      "center": true
+    },
+    "theme": {
+      "default": "light",
+      "available": ["light", "dark"],
+      "autoDetect": true
+    },
+    "notifications": {
+      "enabled": true,
+      "duration": 5000,
+      "position": "top-right"
+    }
+  },
+  "updates": {
+    "enabled": true,
+    "autoCheck": true,
+    "checkInterval": 3600000,
+    "autoDownload": true,
+    "autoInstall": false,
+    "channel": "stable",
+    "server": "https://api.github.com/repos/sp5proxy/sp5proxy-desktop/releases"
+  },
+  "logging": {
+    "enabled": true,
+    "level": "info",
+    "file": "sp5proxy.log",
+    "maxSize": "10MB",
+    "maxFiles": 5,
+    "console": true
+  },
+  "performance": {
+    "maxConnections": 1000,
+    "bufferSize": 65536,
+    "keepAlive": true,
+    "keepAliveTimeout": 60000
+  },
+  "compatibility": {
+    "windows": {
+      "minVersion": "10.0.0",
+      "supportedVersions": ["10", "11"],
+      "requiredFeatures": ["TUN", "WinTun", "UAC"]
+    },
+    "node": {
+      "minVersion": "16.0.0",
+      "recommendedVersion": "18.0.0"
+    },
+    "electron": {
+      "minVersion": "25.0.0",
+      "recommendedVersion": "27.0.0"
+    }
+  },
+  "features": {
+    "systemWideProxy": true,
+    "dnsRedirection": true,
+    "trafficEncryption": true,
+    "autoReconnect": true,
+    "configBackup": true,
+    "updateNotifications": true,
+
+    "ipDetection": true,
+    "routeManagement": true,
+    "firewallIntegration": false
+  },
+  "troubleshooting": {
+    "diagnostics": {
+      "enabled": true,
+      "autoRun": false,
+      "tests": [
+        "adminRights",
+        "networkConnectivity",
+        "tunInterface",
+        "proxyConnectivity",
+        "dnsResolution",
+        "routingTable"
+      ]
+    },
+    "recovery": {
+      "autoRestore": true,
+      "backupRoutes": true,
+      "emergencyDisconnect": true,
+      "safeMode": false
+    }
+  },
+  "advanced": {
+    "experimental": {
+      "enabled": false,
+      "features": []
+    },
+    "debug": {
+      "enabled": false,
+      "verbose": false,
+      "saveToFile": true
+    },
+    "customScripts": {
+      "enabled": false,
+      "preConnect": "",
+      "postConnect": "",
+      "preDisconnect": "",
+      "postDisconnect": ""
+    }
+  }
+}

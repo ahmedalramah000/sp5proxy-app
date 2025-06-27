@@ -1,0 +1,32 @@
+{
+  "name": "sp5proxy-monetization-server",
+  "version": "1.0.0",
+  "description": "SP5Proxy Desktop Monetization Server - Generates and validates temporary OTP codes for connection extensions",
+  "main": "code-generator.js",
+  "scripts": {
+    "start": "node code-generator.js",
+    "dev": "nodemon code-generator.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "sp5proxy",
+    "monetization",
+    "otp",
+    "codes",
+    "proxy",
+    "vpn"
+  ],
+  "author": "SP5Proxy Team",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

@@ -1,0 +1,285 @@
+/* SP5Proxy Desktop - Unified Icon System CSS */
+
+/* Base icon styles */
+.icon, [class*="icon-"], [class*="status-icon"] {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: middle;
+}
+
+/* Status icons - using unified icon system */
+.status-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.status-icon-connected {
+    background-image: url('../../assets/icons/connected.png');
+}
+
+.status-icon-connecting {
+    background-image: url('../../assets/icons/connecting.png');
+    animation: pulse 1.5s infinite;
+}
+
+.status-icon-disconnected {
+    background-image: url('../../assets/icons/disconnected.png');
+}
+
+/* Feature icons */
+.feature-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+.icon-shield {
+    background-image: url('../../assets/icons/shield.png');
+}
+
+.icon-globe {
+    background-image: url('../../assets/icons/globe.png');
+}
+
+.icon-lock {
+    background-image: url('../../assets/icons/lock.png');
+}
+
+/* Action icons */
+.icon-refresh {
+    width: 16px;
+    height: 16px;
+    background-image: url('../../assets/icons/refresh.png');
+    margin-right: 6px;
+}
+
+.icon-refresh.spinning {
+    animation: spin 1s linear infinite;
+}
+
+.icon-settings {
+    background-image: url('../../assets/icons/settings.png');
+}
+
+.icon-info {
+    background-image: url('../../assets/icons/info.png');
+}
+
+/* Admin icons */
+.admin-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 6px;
+}
+
+.admin-icon-warning {
+    background-image: url('../../assets/icons/warning.png');
+}
+
+.admin-icon-success {
+    background-image: url('../../assets/icons/connected.png');
+}
+
+.admin-icon-error {
+    background-image: url('../../assets/icons/disconnected.png');
+}
+
+/* Navigation icons */
+.nav-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+}
+
+.nav-icon-dashboard {
+    background-image: url('../../assets/icons/dashboard.png');
+}
+
+.nav-icon-proxy {
+    background-image: url('../../assets/icons/network.png');
+}
+
+.nav-icon-settings {
+    background-image: url('../../assets/icons/settings.png');
+}
+
+.nav-icon-logs {
+    background-image: url('../../assets/icons/logs.png');
+}
+
+/* Button icons */
+.btn-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+}
+
+.btn-icon-connect {
+    background-image: url('../../assets/icons/connect.png');
+}
+
+.btn-icon-disconnect {
+    background-image: url('../../assets/icons/disconnect.png');
+}
+
+.btn-icon-save {
+    background-image: url('../../assets/icons/save.png');
+}
+
+.btn-icon-test {
+    background-image: url('../../assets/icons/test.png');
+}
+
+/* Tray icons (for notifications) */
+.tray-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.tray-icon-idle {
+    background-image: url('../../assets/tray-idle.png');
+}
+
+.tray-icon-active {
+    background-image: url('../../assets/tray-active.png');
+}
+
+.tray-icon-error {
+    background-image: url('../../assets/tray-error.png');
+}
+
+/* Animations */
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.05); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes glow {
+    0% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.5); }
+    50% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.8); }
+    100% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.5); }
+}
+
+/* Icon states */
+.icon-success, .icon-connected {
+    filter: hue-rotate(90deg) saturate(1.2);
+}
+
+.icon-warning, .icon-connecting {
+    filter: hue-rotate(45deg) saturate(1.1);
+}
+
+.icon-error, .icon-disconnected {
+    filter: hue-rotate(315deg) saturate(1.2);
+}
+
+.icon-primary {
+    filter: hue-rotate(0deg) saturate(1.1) brightness(1.1);
+}
+
+.icon-secondary {
+    filter: grayscale(0.3) brightness(0.9);
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .icon, [class*="icon-"], [class*="status-icon"] {
+        filter: brightness(0.9) contrast(1.1);
+    }
+    
+    .icon-connected, .icon-success {
+        filter: hue-rotate(90deg) saturate(1.2) brightness(1.1);
+    }
+    
+    .icon-disconnected, .icon-error {
+        filter: hue-rotate(315deg) saturate(1.2) brightness(1.1);
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .icon, [class*="icon-"], [class*="status-icon"] {
+        filter: contrast(1.5) brightness(1.2);
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .icon-refresh.spinning,
+    .status-icon-connecting {
+        animation: none;
+    }
+    
+    .icon-refresh.spinning::after {
+        content: " (refreshing)";
+        font-size: 0.8em;
+        margin-left: 4px;
+    }
+}
+
+/* Icon sizing variants */
+.icon-xs { width: 12px; height: 12px; }
+.icon-sm { width: 16px; height: 16px; }
+.icon-md { width: 20px; height: 20px; }
+.icon-lg { width: 24px; height: 24px; }
+.icon-xl { width: 32px; height: 32px; }
+
+/* Icon positioning */
+.icon-left { margin-right: 6px; }
+.icon-right { margin-left: 6px; }
+.icon-center { margin: 0 auto; display: block; }
+
+/* Icon button styles */
+.icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border: none;
+    background: transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.icon-button:hover {
+    background-color: rgba(59, 130, 246, 0.1);
+}
+
+.icon-button:active {
+    background-color: rgba(59, 130, 246, 0.2);
+}
+
+.icon-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Fallback styles for missing icons */
+.icon:not([style*="background-image"])::before,
+[class*="icon-"]:not([style*="background-image"])::before {
+    content: "🔲";
+    font-size: 0.8em;
+    display: block;
+    text-align: center;
+    line-height: 1;
+}
+
+/* Print styles */
+@media print {
+    .icon, [class*="icon-"], [class*="status-icon"] {
+        -webkit-print-color-adjust: exact;
+        color-adjust: exact;
+        filter: grayscale(1) contrast(1.2);
+    }
+} 

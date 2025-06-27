@@ -1,0 +1,84 @@
+/* Admin Status Indicator Styles */
+.admin-status-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-medium);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  transition: all var(--transition-fast);
+  position: relative;
+  min-width: 120px;
+  justify-content: center;
+}
+
+.admin-status-indicator[role="button"] {
+  cursor: pointer;
+}
+
+.admin-status-indicator[role="button"]:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px var(--shadow-medium);
+}
+
+.admin-status-indicator.admin-active {
+  background-color: var(--accent-success);
+  color: white;
+  pointer-events: none;
+}
+
+.admin-status-indicator.admin-limited {
+  background-color: var(--accent-warning);
+  color: #212529;
+}
+
+.admin-status-indicator.admin-required {
+  background-color: var(--accent-warning);
+  color: #212529;
+}
+
+.admin-status-indicator.elevating {
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.admin-icon {
+  font-size: 1rem;
+}
+
+.admin-text {
+  font-weight: 600;
+}
+
+.elevation-spinner {
+  position: absolute;
+  right: var(--spacing-xs);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.spinner {
+  width: 12px;
+  height: 12px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .admin-status-indicator {
+    min-width: 100px;
+    font-size: var(--font-size-xs);
+  }
+  
+  .admin-text {
+    display: none;
+  }
+}
