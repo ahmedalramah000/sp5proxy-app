@@ -1,182 +1,191 @@
-# SP5Proxy Desktop
+# SP5Proxy Desktop 🛡️
 
-**System-wide proxy application for Windows** - Route all network traffic through SOCKS5/HTTP proxies with enterprise-grade security and performance.
+**Professional Proxy Management Application for Windows**
 
-## 🚀 Features
+SP5Proxy Desktop is a comprehensive, production-ready proxy management application built with Electron and React. It provides enterprise-grade proxy functionality with advanced features for secure internet browsing and network management.
 
-- **System-wide Traffic Routing**: Captures and routes all system traffic through configured proxy servers
-- **Advanced Security**: Professional-grade security features with comprehensive logging and monitoring
-- **High Performance**: Optimized networking stack for minimal latency and maximum throughput
-- **Admin Panel**: Web-based administration interface for monitoring and configuration
-- **Multiple Proxy Support**: SOCKS5 and HTTP proxy protocols
-- **Windows Integration**: Deep Windows system integration with TUN interface support
+## ✨ Key Features
 
-## 📋 System Requirements
+### 🔒 Advanced Proxy Management
+- **Multi-Protocol Support**: HTTP, HTTPS, SOCKS4, SOCKS5
+- **Authentication Systems**: Username/Password, Token-based
+- **Smart Routing**: Automatic failover and load balancing
+- **Real-time Monitoring**: Connection status and performance metrics
 
-- **OS**: Windows 10/11 (64-bit)
-- **RAM**: 4GB minimum
-- **Disk Space**: 100MB
-- **Privileges**: Administrator privileges required
-- **Network**: Internet connection for proxy functionality
+### 🚀 Desktop Application
+- **Modern UI**: Built with React and modern design principles
+- **Cross-Platform**: Optimized for Windows with Linux/macOS compatibility
+- **System Integration**: Windows taskbar and system tray integration
+- **Admin Privileges**: Automated UAC elevation for system-wide proxy settings
 
-## 🛠️ Installation
+### 🌐 Web Interface
+- **Admin Panel**: Complete web-based administration interface
+- **Real-time Dashboard**: Live connection monitoring and statistics
+- **User Management**: Multi-user support with role-based access
+- **API Integration**: RESTful API for external integrations
 
-### Desktop Application
-1. Download the latest installer from the releases page
-2. Run the installer as Administrator
-3. Follow the installation wizard
-4. Launch SP5Proxy Desktop from the Start Menu
+### 🔧 Advanced Features
+- **DNS Management**: Custom DNS servers and leak protection
+- **Network Diagnostics**: Built-in connectivity testing and troubleshooting
+- **Extension Support**: Browser extension integration
+- **Monetization Ready**: Built-in monetization management system
 
-### VPS Deployment (Ubuntu 22.04)
-For deploying the admin panel on a VPS:
+## 🏗️ Architecture
 
-```bash
-# One-line deployment command
-ssh root@YOUR_VPS_IP "curl -fsSL https://raw.githubusercontent.com/ahmedalramah000/sp5proxy-app/main/deploy_sp5proxyapp.sh | bash"
+```
+SP5Proxy Desktop/
+├── 🖥️  Electron Main Process
+├── ⚛️  React Frontend (Web UI)
+├── 🌐 Express.js Backend (API Server)
+├── 🗄️  SQLite Database
+├── 🔧 PowerShell Integration (Windows)
+├── 🌍 Admin Web Panel
+└── 🔌 Browser Extensions
 ```
 
-## 🏗️ Development
+## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 18+ LTS
-- npm or yarn
-- Git
+- **Node.js** 16+ 
+- **Windows 10/11** (Administrator privileges required)
+- **Git** for development
 
-### Setup
+### Installation
+
+1. **Clone the repository**:
 ```bash
-# Clone the repository
-git clone https://github.com/ahmedalramah000/sp5proxy-app.git
-cd sp5proxy-app
-
-# Install dependencies
-npm install
-
-# Install admin panel dependencies
-cd admin-panel
-npm install
-cd ..
-
-# Start development
-npm run start-dev
+git clone https://github.com/your-username/sp5proxy.git
+cd sp5proxy
 ```
 
-### Building
+2. **Install dependencies**:
 ```bash
-# Build React components
-npm run build-react
-
-# Build desktop application
-npm run build
-
-# Build for distribution
-npm run dist
+npm install
 ```
 
-## 🌐 Admin Panel
-
-The admin panel provides a web interface for:
-- Real-time connection monitoring
-- Proxy configuration management
-- User session tracking
-- System performance metrics
-- Download analytics
-
-### Local Development
+3. **Launch the application**:
 ```bash
-cd admin-panel
+# For end users (recommended)
+.\SP5Proxy-FORCE-ADMIN.bat
+
+# For developers
 npm start
-# Access at http://localhost:3000
 ```
 
-### Production Deployment
-The deployment script automatically configures:
-- Nginx reverse proxy
-- SSL certificates with Let's Encrypt
-- PM2 process management
-- Firewall and security settings
+## 🛠️ Development
 
-## 📁 Project Structure
+### Project Structure
+```
+sp5proxy/
+├── src/                    # Core application logic
+│   ├── react/             # React frontend components
+│   ├── api-server.js      # Express.js API server
+│   ├── proxy-manager.js   # Proxy management
+│   ├── network-manager.js # Network utilities
+│   └── elevation-manager.js # UAC handling
+├── admin-panel/           # Web administration interface
+├── assets/               # Application assets and icons
+├── bin/                  # Binary executables
+├── config/              # Configuration files
+└── scripts/             # Build and deployment scripts
+```
 
+### Available Scripts
+
+```bash
+# Development
+npm start                 # Start development server
+npm run dev              # Development mode with hot reload
+npm run build            # Build production version
+npm run package          # Create distributable package
+
+# Testing
+npm test                 # Run test suite
+npm run lint             # Code linting
+
+# Administration
+npm run admin            # Start admin panel
+npm run clean            # Clean build artifacts
 ```
-sp5proxy-app/
-├── admin-panel/          # Web admin interface
-│   ├── server.js         # Node.js server
-│   ├── public/           # Static web assets
-│   └── data/             # Database files
-├── src/                  # Desktop application source
-│   ├── react/            # React UI components
-│   ├── api-server.js     # Local API server
-│   └── proxy-manager.js  # Core proxy functionality
-├── assets/               # Application assets
-├── bin/                  # Binary dependencies
-├── config/               # Configuration files
-├── scripts/              # Build and utility scripts
-└── deploy_sp5proxyapp.sh # VPS deployment script
-```
+
+## 🌟 Key Components
+
+### 1. Proxy Management System
+- **High-performance proxy handling** with connection pooling
+- **Automatic proxy validation** and health checking
+- **Smart failover** between multiple proxy servers
+- **Real-time performance monitoring**
+
+### 2. Network Security
+- **DNS leak protection** with custom DNS servers
+- **IP leak prevention** and detection
+- **Encrypted proxy connections** (HTTPS/SOCKS5)
+- **Traffic analysis and logging**
+
+### 3. User Interface
+- **Modern Material Design** components
+- **Responsive layout** for all screen sizes
+- **Dark/Light theme** support
+- **Real-time status indicators**
+
+### 4. System Integration
+- **Windows UAC integration** for admin privileges
+- **System proxy configuration** management
+- **Registry management** for persistent settings
+- **Service management** for background operations
 
 ## 🔧 Configuration
 
-### Desktop Application
-Configuration files are located in:
-- `config/app-config.json` - Application settings
-- `config/proxy-config.json` - Proxy configurations
-
-### Admin Panel
-Environment variables:
-- `PORT` - Server port (default: 3000)
-- `NODE_ENV` - Environment (production/development)
-- `DB_PATH` - Database file path
-
-## 🚀 Deployment
-
-### VPS Deployment Features
-- **Automated Setup**: Complete system configuration
-- **SSL Certificates**: Automatic Let's Encrypt integration
-- **Security**: Firewall, rate limiting, security headers
-- **Monitoring**: Comprehensive logging and analytics
-- **Backup**: Automated backup and restore functionality
-
-### Deployment Domains
-- **Main Site**: `sp5proxyapp.com` - Landing page with download
-- **Admin Panel**: `admin.sp5proxyapp.com` - Administration interface
-
-### Management Commands
-After deployment, use these commands on your VPS:
-```bash
-sp5proxy status              # System status
-sp5proxy restart             # Restart services
-sp5proxy logs [type] [lines] # View logs
-sp5proxy update              # Update application
-sp5proxy backup [name]       # Create backup
-sp5proxy restore <name>      # Restore from backup
-sp5proxy monitor             # Real-time monitoring
-sp5proxy security            # Security check
+### Application Settings
+Edit `config/app-config.json`:
+```json
+{
+  "autoStart": true,
+  "minimizeToTray": true,
+  "checkUpdates": true,
+  "logLevel": "info"
+}
 ```
 
-## 🔒 Security
+### Proxy Configuration
+Edit `config/proxy-config.json`:
+```json
+{
+  "defaultProxy": {
+    "host": "your-proxy.com",
+    "port": 8080,
+    "protocol": "http",
+    "auth": {
+      "username": "",
+      "password": ""
+    }
+  }
+}
+```
 
-- **Traffic Encryption**: All proxy traffic is encrypted
-- **Admin Authentication**: Secure admin panel access
-- **Rate Limiting**: Protection against abuse
-- **Security Headers**: Comprehensive HTTP security headers
-- **Firewall Integration**: UFW firewall configuration
-- **SSL/TLS**: Full SSL certificate management
+## 📊 Performance Features
 
-## 📊 Monitoring
+- **Memory Optimization**: Efficient resource usage
+- **CPU Monitoring**: Real-time performance tracking
+- **Network Optimization**: Minimal latency overhead
+- **Battery Efficiency**: Power-aware background operations
 
-- **Real-time Metrics**: Connection statistics and performance
-- **Download Analytics**: Track installer downloads
-- **System Health**: Server resource monitoring
-- **Error Logging**: Comprehensive error tracking
-- **Backup Management**: Automated backup scheduling
+## 🔒 Security Features
+
+- **Secure Credential Storage**: Windows Credential Manager integration
+- **Encrypted Configuration**: Sensitive data protection
+- **Admin Rights Management**: Proper privilege escalation
+- **Network Isolation**: Secure proxy tunneling
 
 ## 🤝 Contributing
 
+We welcome contributions! Please read our contributing guidelines:
+
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
 
 ## 📄 License
 
@@ -184,14 +193,30 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🆘 Support
 
-- **Issues**: [GitHub Issues](https://github.com/ahmedalramah000/sp5proxy-app/issues)
 - **Documentation**: Check the `/docs` folder for detailed guides
-- **Admin Panel**: Access your deployed admin panel for system monitoring
+- **Issues**: Report bugs via GitHub Issues
+- **Discussions**: Join our GitHub Discussions for questions
 
-## 🏷️ Version
+## 🚀 Roadmap
 
-Current version: 1.0.0
+- [ ] **Linux Support**: Native Linux compatibility
+- [ ] **macOS Support**: Native macOS application
+- [ ] **Mobile Apps**: iOS and Android companion apps
+- [ ] **Cloud Sync**: Cross-device configuration synchronization
+- [ ] **VPN Integration**: Built-in VPN capabilities
+- [ ] **Advanced Analytics**: Detailed usage statistics
+
+## 💡 Credits
+
+Built with ❤️ using:
+- **Electron** - Desktop application framework
+- **React** - User interface library
+- **Express.js** - Web server framework
+- **SQLite** - Database engine
+- **Material-UI** - UI component library
 
 ---
 
-**SP5Proxy Desktop** - Professional system-wide proxy solution for Windows with enterprise features and web-based administration.
+**SP5Proxy Desktop** - Professional Proxy Management Made Simple
+
+*For technical support, please create an issue or contact the development team.*
