@@ -94,6 +94,21 @@ class APIServer {
             }
         });
 
+        // Connection tracking
+        this.app.post('/api/connections', async (req, res) => {
+            try {
+                const connectionData = req.body;
+                // Broadcast to WebSocket clients for real-time updates
+                this.broadcast({
+                    type: 'new_connection',
+                    data: connectionData
+                });
+                res.json({ success: true });
+            } catch (error) {
+                res.status(500).json({ error: error.message });
+            }
+        });
+
         // Session management
         this.app.post('/api/sessions', async (req, res) => {
             try {
@@ -119,6 +134,17 @@ class APIServer {
                 const { sessionId } = req.params;
                 const { duration } = req.body;
                 const result = await this.dbManager.endSession(sessionId, duration);
+                res.json({ success: result });
+            } catch (error) {
+                res.status(500).json({ error: error.message });
+            }
+        });
+
+        // Alternative endpoint for ending sessions (used by VPS sync)
+        this.app.post('/api/sessions/end', async (req, res) => {
+            try {
+                const { sessionId } = req.body;
+                const result = await this.dbManager.endSession(sessionId);
                 res.json({ success: result });
             } catch (error) {
                 res.status(500).json({ error: error.message });

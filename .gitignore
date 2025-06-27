@@ -1,47 +1,96 @@
 # Dependencies
 node_modules/
+*/node_modules/
+
+# Logs
+logs
+*.log
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
 
 # Build outputs
 dist/
-dist-react/
 build/
+dist-*/
+.next/
+out/
+
+# Electron build outputs
+app-builds/
+electron-builds/
+release-builds/
 
 # Environment variables
 .env
 .env.local
-.env.production
-.env.development
-*.env
+.env.development.local
+.env.test.local
+.env.production.local
 
 # Database files
 *.db
 *.sqlite
 *.sqlite3
-database/*.db
+database.db
+sp5proxy.db
 
-# Logs
-logs/
-*.log
+# Temporary files
+tmp/
+temp/
+.tmp/
 
-# Runtime data
-pids/
-*.pid
-*.seed
-*.pid.lock
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows specific
+desktop.ini
+$RECYCLE.BIN/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 
 # Coverage directory used by tools like istanbul
 coverage/
+*.lcov
 
 # nyc test coverage
 .nyc_output
 
 # Dependency directories
-node_modules/
 jspm_packages/
+
+# TypeScript cache
+*.tsbuildinfo
 
 # Optional npm cache directory
 .npm
+
+# Optional eslint cache
+.eslintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
 
 # Optional REPL history
 .node_repl_history
@@ -54,44 +103,45 @@ jspm_packages/
 
 # dotenv environment variables file
 .env
+.env.test
 
-# Electron builds
-dist-electron/
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
 
-# IDE files
-.vscode/
-.idea/
-*.swp
-*.swo
+# Webpack cache
+.cache/
 
-# OS generated files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
+# Serverless directories
+.serverless/
 
-# Sensitive configuration files
-config/secrets.json
-config/api-keys.json
+# FuseBox cache
+.fusebox/
 
-# Temporary files
-tmp/
-temp/
-*.tmp
+# DynamoDB Local files
+.dynamodb/
 
-# Package files
-*.7z
-*.dmg
-*.gz
-*.iso
-*.jar
-*.rar
-*.tar
-*.zip
+# TernJS port file
+.tern-port
 
-# Windows specific
+# Local configuration files
+config/local-*
+
+# Binary files (executables)
 *.exe
-*.msi
+*.dll
+!bin/*.exe
+!bin/*.dll
+
+# Backup files
+*.bak
+*.backup
+*.orig
+
+# Cache directories
+.cache/
+cache/
+
+# React build output (keep source, ignore built output)
+# Uncomment if you want to exclude built React files
+# dist-react/
