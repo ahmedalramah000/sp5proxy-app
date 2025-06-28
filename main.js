@@ -14,6 +14,7 @@ const ConfigManager = require('./src/config-manager');
 const DatabaseManager = require('./src/database-manager');
 const APIServer = require('./src/api-server');
 const UrlExtensionManager = require('./src/url-extension-manager');
+const VPSSync = require('./src/vps-sync');
 
 // 🚨 SINGLE INSTANCE ENFORCEMENT - Prevent multiple instances
 const gotTheLock = app.requestSingleInstanceLock();
@@ -54,6 +55,7 @@ class SP5ProxyApp {
         this.databaseManager = null;
         this.apiServer = null;
         this.urlExtensionManager = null;
+        this.vpsSync = null;
         this.isConnected = false;
         this.currentConfig = null;
         this.autoElevationAttempted = false;
@@ -90,6 +92,9 @@ class SP5ProxyApp {
             this.monetizationManager = new MonetizationManager();
             console.log('📦 Creating ConfigManager...');
             this.configManager = new ConfigManager();
+            
+            console.log('📦 Creating VPS Sync...');
+            this.vpsSync = new VPSSync();
 
             // Skip database in development mode to avoid crashes
             const SKIP_DATABASE = process.env.SP5PROXY_DEV_MODE === '1';

@@ -6,21 +6,25 @@ module.exports = {
     port: process.env.PORT || 3000,
     adminPort: process.env.ADMIN_PORT || 3002,
     host: '0.0.0.0',
-    env: process.env.NODE_ENV || 'production'
+    env: process.env.NODE_ENV || 'production',
+    disableLocalAPI: process.env.DISABLE_LOCAL_API === 'true'
   },
 
   // VPS Configuration
   vps: {
     ip: '168.231.82.24',
-    domain: process.env.VPS_DOMAIN || null,
-    location: 'France - Paris'
+    domain: process.env.VPS_DOMAIN || '168.231.82.24',
+    location: 'France - Paris',
+    apiUrl: process.env.VPS_API_URL || 'http://168.231.82.24:3002'
   },
 
   // Database Configuration
   database: {
     path: './admin-panel/data/sp5proxy.db',
     backupInterval: 24 * 60 * 60 * 1000, // 24 hours
-    maxConnections: 10
+    maxConnections: 10,
+    remoteUrl: process.env.VPS_DB_URL || 'http://168.231.82.24:3002/api',
+    enableRemoteSync: true
   },
 
   // Security Configuration

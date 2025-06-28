@@ -1,0 +1,14 @@
+{
+  "api": {
+    "baseUrl": "http://168.231.82.24:3002",
+    "endpoints": {
+      "health": "/api/health",
+      "connections": "/api/connections",
+      "websocket": "ws://168.231.82.24:3002"
+    }
+  },
+  "admin": {
+    "panelUrl": "http://168.231.82.24:8080"
+  },
+  "disableLocalAPI": true
+} 

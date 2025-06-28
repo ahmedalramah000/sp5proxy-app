@@ -662,6 +662,17 @@ class DatabaseManager extends EventEmitter {
     async createOrUpdateUser(userId, userData = {}) {
         if (!this.isConnected || this.databaseDisabled) {
             console.warn('⚠️ Database not available - createOrUpdateUser skipped');
+            
+            // Try VPS sync instead
+            try {
+                const VPSSync = require('./vps-sync');
+                const vpsSync = new VPSSync();
+                await vpsSync.syncUser({ userId, ...userData });
+                console.log('📤 User data sent to VPS:', userId);
+            } catch (err) {
+                console.warn('⚠️ VPS sync failed for user:', err.message);
+            }
+            
             return { id: userId, ...userData };
         }
 
@@ -693,6 +704,27 @@ class DatabaseManager extends EventEmitter {
     async createSession(sessionData) {
         if (!this.isConnected || this.databaseDisabled) {
             console.warn('⚠️ Database not available - createSession skipped');
+            
+            // Try VPS sync instead
+            try {
+                const VPSAdminSync = require('./vps-admin-sync');
+                const adminSync = new VPSAdminSync();
+                adminSync.connect();
+                await adminSync.syncConnection(sessionData);
+                console.log('📤 Session data sent to Admin Panel:', sessionData.sessionId);
+                
+                // Update location when available
+                if (sessionData.externalIP && sessionData.location) {
+                    await adminSync.updateLocation(sessionData.sessionId, {
+                        externalIP: sessionData.externalIP,
+                        location: sessionData.location,
+                        countryCode: sessionData.countryCode
+                    });
+                }
+            } catch (err) {
+                console.warn('⚠️ Admin Panel sync failed for session:', err.message);
+            }
+            
             return { id: Date.now().toString(), ...sessionData };
         }
 
@@ -881,6 +913,18 @@ class DatabaseManager extends EventEmitter {
     async endSession(sessionId, duration = null) {
         if (!this.isConnected || this.databaseDisabled) {
             console.warn('⚠️ Database not available - endSession skipped');
+            
+            // Try VPS sync instead
+            try {
+                const VPSAdminSync = require('./vps-admin-sync');
+                const adminSync = new VPSAdminSync();
+                adminSync.connect();
+                await adminSync.syncDisconnection(sessionId);
+                console.log('📤 Session end sent to Admin Panel:', sessionId);
+            } catch (err) {
+                console.warn('⚠️ Admin Panel sync failed for session end:', err.message);
+            }
+            
             return true;
         }
 
